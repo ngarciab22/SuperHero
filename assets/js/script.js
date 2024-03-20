@@ -1,13 +1,13 @@
 $(document).ready(function () {
 
-  $('#inputForm').submit(function (event){ 
+  $('#inputForm').submit(function (event) {
     event.preventDefault();
     validarSubmit();// Llama a la función para validar el formulario
     buscarSuperhero();// Llama a la función para conectar con la API
     $('#inputForm').trigger('reset');//Se resetea el formulario luego de cada envío
     CardCanvas();//Llama a la función para aplicar animación
   })
-//Función que valida el formulario
+  //Función que valida el formulario
   function validarSubmit() {
     let idNumber = $('#buscarHero').val();
     if (!/^[1-9]\d*/.test(idNumber)) {
@@ -16,7 +16,7 @@ $(document).ready(function () {
     }
     return true;
   }
-//Función que conecta con la API
+  //Función que conecta con la API
   function buscarSuperhero() {
     let id = $('#buscarHero').val();
     const urlApiId = `https://www.superheroapi.com/api.php/4905856019427443/${id}`;
@@ -30,16 +30,16 @@ $(document).ready(function () {
       }
     })
   }
-//Función que realiza animación en el body de html
+  //Función que realiza animación en el body de html
   function CardCanvas() {
     $('html, body').animate({
       scrollTop: $('#CardCanvas').offset().top
     }, 'slow');
   }
-//Función que muestra la información de algunas propiedades obtenidas de la api
+  //Función que muestra la información de algunas propiedades obtenidas de la api
   function mostrarInfo(hero) {
-    let cardInfo =  
-        `<h2 style = "text-align:center">SuperHero encontrado</h2>
+    let cardInfo =
+      `<h2 style = "text-align:center">SuperHero encontrado</h2>
         <div class="card mb-3">
             <div class="row">
                 <div class="col-4">
@@ -64,44 +64,41 @@ $(document).ready(function () {
                   </div>
             </div>
         </div>`
-        
-        $('#cardHero').html(cardInfo);//Inserta la información en la sección de html de Id cardHero
 
-    //Condicionante que permite no mostrar el gráfico en caso de que la propiedad tenga valor null
-    if(hero.powerstats.intelligence === 'null' ||
-      hero.powerstats.strength === 'null' ||
-      hero.powerstats.speed === 'null' ||
-      hero.powerstats.durability === 'null' ||
-      hero.powerstats.power === 'null' ||
-      hero.powerstats.combat === 'null'
-      ){
-      $('#Canvas').html(`<h2 class = "text-center">No hay estadísticas de poder para este superhéroe.</h2>`);
+    $('#cardHero').html(cardInfo);//Inserta la información en la sección de html de Id cardHero
+
+    // Itera sobre las propiedades de powerstats
+    $.each(hero.powerstats, function(propiedad, valor){
+      if (valor === 'null') {
+        $('#Canvas').html(`<h2 class="text-center">No hay estadísticas de poder para este superhéroe.</h2>`);//Si el valor es null imprime h2
+        return false;
       }
-    //En caso de que tenga un valor asociado (no null) se muestra el gráfico
-    else{
-    let opciones = {
-      animationEnabled: true,
-      title: {
-        text: `Estadísticas de Poder para ${hero.name}`
-      },
-      data: [{
-        type: "pie",
-        showInLegend: true,
-        legendText: "{label}",
-        indexLabel: "{label} {y}",
-        dataPoints: [
-          { label: "intelligence", y: hero.powerstats.intelligence},
-          { label: "strength", y: hero.powerstats.strength},
-          { label: "speed", y: hero.powerstats.speed},
-          { label: "durability", y: hero.powerstats.durability},
-          { label: "power", y: hero.powerstats.power},
-          { label: "combat", y: hero.powerstats.combat},
-        ]
-      }]
-    }
-    $("#Canvas").CanvasJSChart(opciones);}//Inserta la información en la sección de html de Id Canvas
-  }}
-)
+      else {
+        let opciones = {
+          animationEnabled: true,
+          title: {
+            text: `Estadísticas de Poder para ${hero.name}`
+          },
+          data: [{
+            type: "pie",
+            showInLegend: true,
+            legendText: "{label}",
+            indexLabel: "{label} {y}",
+            dataPoints: [
+              { label: "intelligence", y: hero.powerstats.intelligence },
+              { label: "strength", y: hero.powerstats.strength },
+              { label: "speed", y: hero.powerstats.speed },
+              { label: "durability", y: hero.powerstats.durability },
+              { label: "power", y: hero.powerstats.power },
+              { label: "combat", y: hero.powerstats.combat },
+            ]
+          }]
+        }
+        $("#Canvas").CanvasJSChart(opciones);//Si el valor no es null imprime gráfico en sección del html de Id Canvas
+      }
+    });
+  }
+})
 
 
 
