@@ -9,6 +9,43 @@
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
+    <header>
+        <!-- Aquí comienza el nav -->
+        <nav class="navbar bg-secondary">
+            <div class="container-fluid">
+              <a class="navbar-brand text-light" href="#">
+                <img src="assets/img/sh2.jpg" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
+                SuperHero
+              </a>
+            </div>
+        </nav>
+        <!-- Aquí comienza el hero de la página -->
+        <div id="hero" class="container">
+            <div id="imgHero" class="d-flex justify-content-center p-4">
+                <img class="mb-auto" src="assets/img/sh1.jpg" alt=""> 
+            </div>  
+            <!-- Aquí se añade etiqueta form -->
+            <form id="inputForm" class="px-5">
+                <h1 class="d-flex justify-content-center justify-content-lg-start">Encuentra tu SuperHero</h1>
+                <label for="buscarHero" class="form-label d-flex justify-content-center justify-content-lg-start">Ingresa el número del SuperHero a buscar</label>
+                <input type="text" class="form-control" id="buscarHero">
+                <button type="submit" class="btn btn-primary my-3">Buscar</button>
+            </form>
+        </div>
+    </header>
+    <main>
+        <!-- Aquí comienza la sección que incluye la card del superhéroe y el gráfico Canvas -->
+        <section id="CardCanvas" class="my-5">
+            <div class="container">
+                <div class="row">
+                    <div id="cardHero" class="col-12 col-lg-6">
+                    </div>
+                    <div id="Canvas" class="col-12 col-lg-6">
+                    </div>
+                </div>
+            </div>   
+        </section> 
+    </main>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="https://cdn.canvasjs.com/ga/jquery.canvasjs.min.js"></script>
